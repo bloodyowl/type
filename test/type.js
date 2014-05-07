@@ -1,6 +1,16 @@
 var tape = require("tape")
   , type = require("../")
 
+tape("type", function(test){
+
+  test.ok(type(["foo", 3], type.isString, type.isNumber))
+  test.ok(!type(["foo", 3], type.isString, type.isString))
+  test.ok(type(["foo", 3, "bar"], type.isString, null, type.isString))
+  test.ok(type(arguments, type.isObject))
+  test.ok(type([], type.isObject))
+  test.end()
+})
+
 tape("type.isObject", function(test){
 
   var object = {}

@@ -1,110 +1,118 @@
-;(function(root, name, output){
-  if(typeof define == "function" && define.amd) return define([], output)
-  if(typeof module == "object" && module.exports) module.exports = output()
-  else root[name] = output()
-})(this, "type", function(){
+var STRING_CLASS = "[object String]"
+var ARRAY_CLASS = "[object Array]"
+var NUMBER_CLASS = "[object Number]"
+var BOOLEAN_CLASS = "[object Boolean]"
+var DATE_CLASS = "[object Date]"
+var REGEXP_CLASS = "[object RegExp]"
+var ARGUMENTS_CLASS = "[object Arguments]"
+var FUNCTION_CLASS = "[object Function]"
+var _toString = {}.toString
+var _hasOwnProperty = {}.hasOwnProperty
+var _propertyIsEnumerable = {}.propertyIsEnumerable
+var supportsArgumentsClass = _toString.call(arguments) == ARGUMENTS_CLASS
 
-  var STRING_CLASS = "[object String]"
-    , ARRAY_CLASS = "[object Array]"
-    , NUMBER_CLASS = "[object Number]"
-    , BOOLEAN_CLASS = "[object Boolean]"
-    , DATE_CLASS = "[object Date]"
-    , REGEXP_CLASS = "[object RegExp]"
-    , ARGUMENTS_CLASS = "[object Arguments]"
-    , FUNCTION_CLASS = "[object Function]"
-    , _toString = {}.toString
-    , _hasOwnProperty = {}.hasOwnProperty
-    , _propertyIsEnumerable = {}.propertyIsEnumerable
-    , supportsArgumentsClass = _toString.call(arguments) == ARGUMENTS_CLASS
-    , typeExports = {}
-
-  typeExports.isObject = isObject
-  function isObject(value){
-    var type = typeof value
-    return value &&
-        type == "object" ||
-        type == "function"
+function typeExports(args /* types*/){
+  var index = -1
+  var length = args.length
+  var types = arguments
+  var typeChecker
+  while(++index < length) {
+    typeChecker = types[index + 1]
+    if(!typeExports.isFunction(typeChecker)) {
+      continue
+    }
+    if(!typeChecker(args[index])) {
+      return false
+    }
   }
+  return true
+}
 
-  typeExports.isString = isString
-  function isString(value){
-    return typeof value == "string" ||
-        _toString.call(value) == STRING_CLASS
-  }
+typeExports.isObject = isObject
+function isObject(value){
+  var type = typeof value
+  return value &&
+      type == "object" ||
+      type == "function"
+}
 
-  typeExports.isArray = isArray
-  function isArray(value){
-    return _toString.call(value) == ARRAY_CLASS
-  }
+typeExports.isString = isString
+function isString(value){
+  return typeof value == "string" ||
+      _toString.call(value) == STRING_CLASS
+}
 
-  typeExports.isFunction = typeof /f/ == "function" ?
-      isFunctionCompat :
-      isFunction
+typeExports.isArray = isArray
+function isArray(value){
+  return _toString.call(value) == ARRAY_CLASS
+}
 
-  function isFunction(value){
-    return typeof value == "function"
-  }
+typeExports.isFunction = typeof /f/ == "function" ?
+    isFunctionCompat :
+    isFunction
 
-  function isFunctionCompat(value){
-    return typeof value == "function" &&
-        _toString.call(value) == FUNCTION_CLASS
-  }
+function isFunction(value){
+  return typeof value == "function"
+}
 
-  typeExports.isNumber = isNumber
-  function isNumber(value){
-    return typeof value == "number" ||
-        _toString.call(value) == NUMBER_CLASS
-  }
+function isFunctionCompat(value){
+  return typeof value == "function" &&
+      _toString.call(value) == FUNCTION_CLASS
+}
 
-  typeExports.isBoolean = isBoolean
-  function isBoolean(value){
-    return typeof value == "boolean" ||
-        _toString.call(value) == BOOLEAN_CLASS
-  }
+typeExports.isNumber = isNumber
+function isNumber(value){
+  return typeof value == "number" ||
+      _toString.call(value) == NUMBER_CLASS
+}
 
-  typeExports.isDate = isDate
-  function isDate(value){
-    return _toString.call(value) == DATE_CLASS
-  }
+typeExports.isBoolean = isBoolean
+function isBoolean(value){
+  return typeof value == "boolean" ||
+      _toString.call(value) == BOOLEAN_CLASS
+}
 
-  typeExports.isRegExp = isRegExp
-  function isRegExp(value){
-    return _toString.call(value) == REGEXP_CLASS
-  }
+typeExports.isDate = isDate
+function isDate(value){
+  return _toString.call(value) == DATE_CLASS
+}
 
-  typeExports.isArguments = supportsArgumentsClass ? isArguments : isArgumentsCompat
-  function isArguments(value){
-     return _toString.call(value) == ARGUMENTS_CLASS
-  }
+typeExports.isRegExp = isRegExp
+function isRegExp(value){
+  return _toString.call(value) == REGEXP_CLASS
+}
 
-  function isArgumentsCompat(value){
-    return value &&
-        typeof value == "object" &&
-        typeof value.length == "number" &&
-        _hasOwnProperty.call(value, "callee") &&
-        !_propertyIsEnumerable.call(value, "callee")
-  }
+typeExports.isArguments = supportsArgumentsClass ? isArguments : isArgumentsCompat
+function isArguments(value){
+   return _toString.call(value) == ARGUMENTS_CLASS
+}
 
-  typeExports.isUndefined = isUndefined
-  function isUndefined(value){
-    return value === void 0
-  }
+function isArgumentsCompat(value){
+  return value &&
+      typeof value == "object" &&
+      typeof value.length == "number" &&
+      _hasOwnProperty.call(value, "callee") &&
+      !_propertyIsEnumerable.call(value, "callee")
+}
 
-  typeExports.isNull = isNull
-  function isNull(value){
-    return value === null
-  }
+typeExports.isUndefined = isUndefined
+function isUndefined(value){
+  return value === void 0
+}
 
-  typeExports.isNaN = isNaN
-  function isNaN(value){
-    return isNumber(value) && +value != value
-  }
+typeExports.isNull = isNull
+function isNull(value){
+  return value === null
+}
 
-  typeExports.isElement = isElement
-  function isElement(value){
-    return !!value && value.nodeType == 1
-  }
-  
-  return typeExports
+typeExports.isNaN = isNaN
+function isNaN(value){
+  return isNumber(value) && +value != value
+}
 
-})
+typeExports.isElement = isElement
+function isElement(value){
+  return !!value && value.nodeType == 1
+}
+
+module.exports = typeExports
