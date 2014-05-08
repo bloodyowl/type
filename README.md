@@ -14,10 +14,6 @@ $ npm install bloody-type
 
 ```javascript
 var type = require("bloody-type")
-// or
-define(["type"], function(type){  })
-// or
-window.type
 ```
 
 ## API
