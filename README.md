@@ -1,5 +1,7 @@
 # type
 
+consistent type-testing micro-lib 
+
 [![browser support](https://ci.testling.com/bloodyowl/type.png)](https://ci.testling.com/bloodyowl/type)
 
 ## Install
