@@ -1,7 +1,7 @@
 {
   "name": "bloody-type",
   "author": "bloodyowl",
-  "version": "0.2.1",
+  "version": "1.0.0",
   "description" : "consistent type-testing micro-lib",
   "scripts": {
     "test": "tape test/*.js"

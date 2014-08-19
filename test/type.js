@@ -1,5 +1,9 @@
 var tape = require("tape")
-  , type = require("../")
+var type = require("../")
+var isBrowser = (
+  typeof window != "undefined" &&
+  typeof document != "undefined"
+)
 
 tape("type", function(test){
 
@@ -35,8 +39,10 @@ tape("type.isObject", function(test){
   test.ok(!type.isObject(false))
   test.ok(!type.isObject(null))
   test.ok(!type.isObject(void 0))
-    test.ok(type.isObject(document.createElement("div")))
-    test.ok(type.isObject(document.createTextNode("foo")))
+    if(isBrowser) {
+      test.ok(type.isObject(document.createElement("div")))
+      test.ok(type.isObject(document.createTextNode("foo")))
+    }
   test.end()
 
 })
@@ -65,8 +71,10 @@ tape("type.isString", function(test){
   test.ok(!type.isString(false))
   test.ok(!type.isString(null))
   test.ok(!type.isString(void 0))
-  test.ok(!type.isString(document.createElement("div")))
-  test.ok(!type.isString(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isString(document.createElement("div")))
+    test.ok(!type.isString(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -96,8 +104,10 @@ tape("type.isArray", function(test){
   test.ok(!type.isArray(false))
   test.ok(!type.isArray(null))
   test.ok(!type.isArray(void 0))
-  test.ok(!type.isArray(document.createElement("div")))
-  test.ok(!type.isArray(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isArray(document.createElement("div")))
+    test.ok(!type.isArray(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -127,8 +137,10 @@ tape("type.isFunction", function(test){
   test.ok(!type.isFunction(false))
   test.ok(!type.isFunction(null))
   test.ok(!type.isFunction(void 0))
-  test.ok(!type.isFunction(document.createElement("div")))
-  test.ok(!type.isFunction(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isFunction(document.createElement("div")))
+    test.ok(!type.isFunction(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -158,8 +170,10 @@ tape("type.isNumber", function(test){
   test.ok(!type.isNumber(false))
   test.ok(!type.isNumber(null))
   test.ok(!type.isNumber(void 0))
-  test.ok(!type.isNumber(document.createElement("div")))
-  test.ok(!type.isNumber(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isNumber(document.createElement("div")))
+    test.ok(!type.isNumber(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -189,8 +203,10 @@ tape("type.isBoolean", function(test){
     test.ok(type.isBoolean(false))
   test.ok(!type.isBoolean(null))
   test.ok(!type.isBoolean(void 0))
-  test.ok(!type.isBoolean(document.createElement("div")))
-  test.ok(!type.isBoolean(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isBoolean(document.createElement("div")))
+    test.ok(!type.isBoolean(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -219,8 +235,10 @@ tape("type.isDate", function(test){
   test.ok(!type.isDate(false))
   test.ok(!type.isDate(null))
   test.ok(!type.isDate(void 0))
-  test.ok(!type.isDate(document.createElement("div")))
-  test.ok(!type.isDate(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isDate(document.createElement("div")))
+    test.ok(!type.isDate(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -250,8 +268,10 @@ tape("type.isRegExp", function(test){
   test.ok(!type.isRegExp(false))
   test.ok(!type.isRegExp(null))
   test.ok(!type.isRegExp(void 0))
-  test.ok(!type.isRegExp(document.createElement("div")))
-  test.ok(!type.isRegExp(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isRegExp(document.createElement("div")))
+    test.ok(!type.isRegExp(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -282,8 +302,10 @@ tape("type.isArguments", function(test){
   test.ok(!type.isArguments(false))
   test.ok(!type.isArguments(null))
   test.ok(!type.isArguments(void 0))
-  test.ok(!type.isArguments(document.createElement("div")))
-  test.ok(!type.isArguments(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isArguments(document.createElement("div")))
+    test.ok(!type.isArguments(document.createTextNode("foo")))
+  }
 
   // fake arguments
   test.ok(!type.isArguments({0:"foo", length:1, callee:function(){}}))
@@ -319,8 +341,10 @@ tape("type.isUndefined", function(test){
   test.ok(!type.isUndefined(false))
   test.ok(!type.isUndefined(null))
     test.ok(type.isUndefined(void 0))
-  test.ok(!type.isUndefined(document.createElement("div")))
-  test.ok(!type.isUndefined(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isUndefined(document.createElement("div")))
+    test.ok(!type.isUndefined(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -349,8 +373,10 @@ tape("type.isNull", function(test){
   test.ok(!type.isNull(false))
     test.ok(type.isNull(null))
   test.ok(!type.isNull(void 0))
-  test.ok(!type.isNull(document.createElement("div")))
-  test.ok(!type.isNull(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isNull(document.createElement("div")))
+    test.ok(!type.isNull(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -379,8 +405,10 @@ tape("type.isNaN", function(test){
   test.ok(!type.isNaN(false))
   test.ok(!type.isNaN(null))
   test.ok(!type.isNaN(void 0))
-  test.ok(!type.isNaN(document.createElement("div")))
-  test.ok(!type.isNaN(document.createTextNode("foo")))
+  if(isBrowser) {
+    test.ok(!type.isNaN(document.createElement("div")))
+    test.ok(!type.isNaN(document.createTextNode("foo")))
+  }
   test.end()
 
 })
@@ -409,8 +437,10 @@ tape("type.isElement", function(test){
   test.ok(!type.isElement(false))
   test.ok(!type.isElement(null))
   test.ok(!type.isElement(void 0))
-    test.ok(type.isElement(document.createElement("div")))
-  test.ok(!type.isElement(document.createTextNode("foo")))
+  if(isBrowser) {
+      test.ok(type.isElement(document.createElement("div")))
+    test.ok(!type.isElement(document.createTextNode("foo")))
+  }
   test.end()
 
 })

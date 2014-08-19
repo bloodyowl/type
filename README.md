@@ -4,6 +4,8 @@ consistent type-testing micro-lib
 
 [![browser support](https://ci.testling.com/bloodyowl/type.png)](https://ci.testling.com/bloodyowl/type)
 
+[![Build Status](https://travis-ci.org/bloodyowl/type.svg)](https://travis-ci.org/bloodyowl/type)
+
 ## Install
 
 ```
